@@ -16,4 +16,18 @@ I also want to submit it to Rechnung+ automatically. This PHP script is doing it
 In the future it could be run as a post-commit hook.
 I understand this is not very precise but it's better than guessing.
 
-Before I describe the usage in details I want to share the information I've got when researching for similar projects.
+Similar solutions
+-----------------
+
+Before I describe the usage in details I want to share the information I've got when researching for similar projects. 
+I've started by searching for "[git time-tracking](https://www.google.de/webhp?q=git%20time-tracking). 
+When analyzing the result I found the following.
+
+* http://andy.delcambre.com/2008/02/06/git-time-tracking.html
+  Post-commit hook is saving current timestamp into a log file, 
+  commit-msg hook calculates how long the feature took to implement and adds the time to the commit message.
+* http://rcrowley.org/2011/01/13/gitpaid.html
+  Running `gpbegin -b client-name` and `gpend -b client-name -m "Shaved the yak."` makes real commits to some extra
+  repository. `gpinvoice -b client-name` calculates the total billded time.
+* http://mir.aculo.us/2009/10/12/instant-time-tracking-from-git-commit-messages/
+  
