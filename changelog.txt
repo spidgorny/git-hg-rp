@@ -1,0 +1,3 @@
+2012-10-17 14:30 start working on the feature (don't edit this file until you commit)
+2012-10-17 14:30 checkpoint
+2012-10-17 15:30 start putting stuff on Rechnung+
