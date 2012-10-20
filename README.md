@@ -46,7 +46,7 @@ This will indicate the starting time.
 Commit and run `php git-hg-rp.php`. Go back to Rechnung+ and see if you get a new record with the time you spent
 working listed. Make sure to explore other features of Rechnung+ like automatic invoicing and statistics.
 
-!(img/Rechnung+ Time - Mozilla Firefox_2012-10-20_12-02-41.png)
+![Rechnung+ committed records](https://raw.github.com/spidgorny/git-hg-rp/master/img/Rechnung+%20Time%20-%20Mozilla%20Firefox_2012-10-20_12-02-41.png)
 
 ## Example output
 
