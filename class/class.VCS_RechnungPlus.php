@@ -10,7 +10,7 @@ class VCS_RechnungPlus {
 			$secondLastCommit = array_shift($logList);
 			$commitDuration = strtotime($lastCommit->date) - strtotime($secondLastCommit->date);	// sec
 			$commitDuration = number_format($commitDuration / 60 / 60, 2, '.', '');	// hr
-			debug(array(
+			/*debug*/(array(
 				'earliestTime' => $secondLastCommit->date,
 				'latestTime' => $lastCommit->date,
 				'duration' => $commitDuration,
@@ -18,13 +18,13 @@ class VCS_RechnungPlus {
 			$cmd = 'hg diff --stat -r '.$secondLastCommit->rev.' -r '.$lastCommit->rev;
 			//debug($cmd);
 			$files = $this->getChangedFiles($cmd);
-			debug('Files', $files);
+			//debug('Files', $files);
 			$minTime = min($files);
 			$fileTimes = array_flip($files);
 			$minFile = $fileTimes[$minTime];
 			$duration = strtotime($lastCommit->date) - $minTime;				// sec
 			$duration = number_format($duration / 60 / 60, 2, '.', '');	// hr
-			debug(array(
+			/*debug*/(array(
 				'cmd' => $cmd,
 				'minTime' => date('r', $minTime),
 				'minFile' => $minFile,
@@ -98,7 +98,7 @@ class VCS_RechnungPlus {
 				"tags" => array(basename(getcwd()).''),
     		),
 		);
-		//debug($content);
+		debug($content[0]);
 		$content = 'jsonData='.urlencode(json_encode($content));	// why urlencode: http://stackoverflow.com/a/5224895/417153
 		//echo $content."\n";
 
@@ -109,8 +109,11 @@ class VCS_RechnungPlus {
 
 			$da = new DigestAuth('Rechnung+ API');
 			$info = $da->POST('http://rechnung-plus.de/api/TipCat', $auth, $content);
-			//debug($info);
-			debug(json_decode($info['response'], true));
+			if ($info['http_code'] == 200) {
+				debug(json_decode($info['response'], true));
+			} else {
+				debug($info);
+			}
 			echo 'POST time: '.$info['total_time'];
 		} else {
 			throw new Exception('rp-login/rp-pw not found in .hg/hgrc');
