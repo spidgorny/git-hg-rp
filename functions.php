@@ -14,6 +14,9 @@ function trimExplode($sep, $str, $limit = 999999, $removeEmpty = true) {
 function debug($name, array $array = array()) {
 	if (!is_string($name)) {
 		$array = $name;
+	} else {
+		echo $name.': ';
 	}
-	echo $name.': '.print_r($array, true)."\n";
+	print_r($array);
+	echo "\n";
 }

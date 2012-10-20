@@ -76,4 +76,37 @@ class DigestAuth {
 		return $needed_parts ? false : $data;
 	}
 
+	/**
+	 * Reverse function below. Requesting DigestAuth...
+	 */
+
+	function POST($url, $auth, $content) {
+		$length = strlen($content);
+
+		$headers[] = "Content-Length: $length";
+
+		$poster = curl_init($url);
+
+		curl_setopt($poster, CURLOPT_FOLLOWLOCATION, TRUE);
+		curl_setopt($poster, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($poster, CURLOPT_TIMEOUT, 60);
+		curl_setopt($poster, CURLOPT_HTTPHEADER, $headers );
+		curl_setopt($poster, CURLOPT_HEADER, 1);
+		curl_setopt($poster, CURLOPT_USERPWD, $auth);
+		curl_setopt($poster, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
+		curl_setopt($poster, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($poster, CURLOPT_POST, 1);
+		curl_setopt($poster, CURLOPT_POSTFIELDS, $content);
+		curl_setopt($poster, CURLOPT_VERBOSE, false);
+		curl_setopt($poster, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($poster, CURLOPT_HEADER, 0);
+		//curl_setopt($poster, CURLOPT_COOKIE, 'debug=1');
+
+		$response = curl_exec($poster);
+		$info = curl_getinfo($poster);
+		$info['response'] = $response;
+		curl_close($poster);
+		return $info;
+	}
+
 }
