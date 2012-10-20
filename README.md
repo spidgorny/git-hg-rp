@@ -17,10 +17,71 @@ I also want to submit it to Rechnung+ automatically. This PHP script is doing it
 In the future it could be run as a post-commit hook.
 I understand this is not very precise but it's better than guessing.
 
+## Initial setup (done once)
+
+1. Download `git-hg-rp` files from github in ZIP or by `git clone` command. Extract ZIP.
+2. Create an account at http://rechnung-plus.de/
+2. Edit `.hg/hgrc` file in your(!) project and enter your Rechnung+ credentials like this:
+
+    [git-hg-rp]
+    rp-login = my@email.com
+    rp-pw = myPassword2012
+
+## Usage (do everytime after commit)
+
+    > php hg-git-rp.php
+    
+This will do everything described above including submitting the time to the project in Rechnung+.
+
+## Example output
+
+This is what I get when I execute the script:
+
+$ php index.php
+Array
+(
+    [recordId] => 9:fb89284da8c9
+    [startDate] => 20121020T040804+0200
+    [endDate] => 20121020T040940+0200
+    [note] => Final
+multi
+line
+upload
+    [tags] => Array
+        (
+            [0] => git-hg-rp
+        )
+
+)
+
+Array
+(
+    [Inserted] =>
+    [Updated] => 1
+    [Skipped] =>
+    [MissingTag] =>
+)
+
+POST time: 0.406
+
+## Setting-up Rechnung+ project
+
+Register and login into Rechnung+, create a client and a project. *Make sure you enter your git|hg project name
+(folder name) into the "Tag" field in a project you create in Rechnung+ in square brackets*. This way it will put the time into a
+correct project.
+
+## Testing
+
+Edit some files. Make sure you touch one file in the beginning of your work and don't change it until you commit.
+This will indicate the starting time.
+
+Commit and run `php git-hg-rp.php`. Go back to Rechnung+ and see if you get a new record with the time you spent
+working listed. Make sure to explore other features of Rechnung+ like automatic invoicing and statistics.
+
 Similar solutions
 -----------------
 
-Before I describe the usage in details I want to share the information I've got when researching for similar projects. 
+I want to share the information I've got when researching for similar projects. 
 I've started by searching for "[git time-tracking](https://www.google.de/webhp?q=git%20time-tracking)". 
 When analyzing the result I found the following.
 
@@ -54,25 +115,5 @@ When analyzing the result I found the following.
 
 So there's no other script which does what I want. Poke me if you like it as it gives me more motivation to continue
 working on it.
-
-## Usage
-
-    > php hg-git-rp.phar
-    
-This will do everything described in the first paragraph including submitting the time to the project in Rechnung+.
-
-## Setting-up Rechnung+ project
-
-Register and login into Rechnung+, create a client and a project. *Make sure you enter your git|hg project name
-(folder name) into the "Tag" field in a project you create in Rechnung+*. This way it will put the time into a
-correct project.
-
-## Testing
-
-Edit some files. Make sure you touch one file in the beginning of your work and don't change it until you commit.
-This will indicate the starting time.
-
-Commit and run `php hg-git-rp.phar`. Go back to Rechnung+ and see if you get a new record with the time you spent
-working listed. Make sure to explore other features of Rechnung+ like automatic invoicing and statistics.
 
 Feedback is welcome. Enjoy.
